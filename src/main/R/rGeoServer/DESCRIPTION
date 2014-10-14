@@ -1,7 +1,6 @@
-Package: ReoWBcckp
+Package: rGeoServer
 Type: Package
-Title: This package supports the development of EO services for the Climate
-    Change Knowledge Portal
+Title: rGeoServer package
 Version: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
 Date: 2014-05-22
 Author: Terradue
