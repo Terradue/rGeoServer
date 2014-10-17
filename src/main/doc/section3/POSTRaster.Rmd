@@ -1,0 +1,19 @@
+This is the main entrance to post a raster on a GeoServer.
+
+  
+### Example
+  
+```coffee
+library(rGeoServer)
+
+setwd("~/Downloads")
+
+filename <- "italy.tif"
+workspace.name <- "my.workspace"
+access.point <- "http://localhost:8080/geoserver/rest"
+coverage.store <- "my.coverage"
+raster <- raster(filename)
+
+ret <- POSTraster(access.point, workspace, coverage.store, raster)
+
+```
