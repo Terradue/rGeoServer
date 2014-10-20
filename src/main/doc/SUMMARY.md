@@ -9,5 +9,6 @@ Welcome to rGeoServer!
     * [Installing the development version](section2/development.md)
     * [Building the documentation](section2/builddoc.md)
 * [Getting started](section3/started.md)
+    * [Create a GeoServerWorkspace](section3/CreateGeoServerWorkspace.md)
+    * [Create a GeoServerCoverageStore](section3/CreateGeoServerCoverageStore.md)
     * [POST a raster](section3/POSTRaster.md)
-* [Citation](section4/citation.md)

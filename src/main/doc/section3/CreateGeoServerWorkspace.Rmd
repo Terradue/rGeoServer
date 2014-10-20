@@ -1,0 +1,16 @@
+This function creates a workspace in a GeoServer instance
+The CreateGeoServerWorkspace return TRUE when the workspace was created, FALSE otherwise (check message returned)
+
+### Example
+  
+```coffee
+library(rGeoServer)
+
+setwd("~/Downloads")
+
+workspace.name <- "GeoServer.workspace"
+access.point <- "http://localhost:8080/geoserver/rest"
+
+result <- CreateGeoServerWorkspace(access.point, workspace.name)
+
+```
