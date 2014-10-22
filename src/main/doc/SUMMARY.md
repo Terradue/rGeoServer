@@ -12,3 +12,4 @@ Welcome to rGeoServer!
     * [Create a GeoServerWorkspace](section3/CreateGeoServerWorkspace.md)
     * [Create a GeoServerCoverageStore](section3/CreateGeoServerCoverageStore.md)
     * [POST a raster](section3/POSTRaster.md)
+    * [POST a vector](section3/POSTvector.md)

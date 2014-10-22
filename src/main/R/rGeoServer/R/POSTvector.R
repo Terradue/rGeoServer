@@ -1,5 +1,5 @@
 #' Posts a vector data image to a GeoServer 
-#' @description Posts a vector data image to a GeoServer given an existing workspace and coverage store. 
+#' @description Posts a vector data image to a GeoServer given an existing workspace and create the corresponding dataStore. 
 #'
 #' @param access.point, a character vector representing a GeoServer REST API access point
 #' @param workspace, a character vector representing the GeoServer workspace 
