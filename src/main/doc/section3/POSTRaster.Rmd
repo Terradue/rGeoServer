@@ -5,15 +5,30 @@ This is the main entrance to post a raster on a GeoServer.
   
 ```coffee
 library(rGeoServer)
+library(sp)
+library(gstat)
+data(meuse)
 
 setwd("~/Downloads")
 
-filename <- "italy.tif"
-workspace.name <- "my.workspace"
-access.point <- "http://localhost:8080/geoserver/rest"
-coverage.store <- "my.coverage"
-raster <- raster(filename)
+coordinates(meuse) = ~x+y
+data(meuse.grid)
+gridded(meuse.grid) = ~x+y
+m <- vgm(.59, "Sph", 874, .04)
+# ordinary kriging:
+x <- krige(log(zinc)~1, meuse, meuse.grid, model = m)
+r <- raster(x[1])
 
-ret <- POSTraster(access.point, workspace, coverage.store, raster)
+coverage.store <- "example.coverageStore"
+
+
+cs<-CreateGeoServerCoverageStore(access.point,
+                             workspace,
+                             coverage.store,
+                             TRUE,
+                             "GeoTIFF",
+                             "file:data/raster.tif")
+
+t<-POSTraster(access.point, workspace, coverage.store, r)
 
 ```
