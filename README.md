@@ -67,15 +67,72 @@ library(rGeoServer)
 
 ## Getting Started 
 
-### to do: make an example
+### Note, The rGeoServer package only supports the Username/password authentication http://docs.geoserver.org/stable/en/user/security/auth/providers.html#username-password-authentication
+The user must save his own access GeoServer credentials on a R variable "geoserver.authn" in "username:password"  form or he will not be able to send data to the GeoServer server.
 
-This example:
+```coffee
+geoserver.authn <- "my.username:my.password"
+```
 
+### Exemple, create and publish a ratser image 
 
 ```coffee
 library(rGeoServer)
+library(sp)
+library(gstat)
+data(meuse)
 
+setwd("~/Downloads")
 
+geoserver.accessPoint <- "http://localhost:8080/geoserver/rest"
+geoserver.workspacename <- "Test.GeoServerRaster"
+geoserver.coveragestore <- "example.coverageStore"
+
+# create the workspace name on the geoserver or use an already created workspace
+CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspacename)
+
+coordinates(meuse) = ~x+y
+data(meuse.grid)
+gridded(meuse.grid) = ~x+y
+m <- vgm(.59, "Sph", 874, .04)
+# ordinary kriging:
+x <- krige(log(zinc)~1, meuse, meuse.grid, model = m)
+r <- raster(x[1])
+
+cs<-CreateGeoServerCoverageStore(geoserver.accessPoint,
+		                         geoserver.workspacename,
+		                         geoserver.coveragestore,
+		                         TRUE,
+		                         "GeoTIFF",
+		                         "file:data/raster.tif")
+
+t<-POSTraster(access.point, workspace, coverage.store, r)
+
+```
+
+### Exemple, create and publish a vector image on the GeoServer server
+```coffee
+library(rGeoServer)
+
+data(meuse.riv)
+setwd("~/Downloads")
+
+geoserver.accessPoint <- "http://localhost:8080/geoserver/rest"
+geoserver.workspacename <- "Test.GeoServerVector"
+dataStore <- "River.Datastore"
+
+# create the workspace name on the geoserver or use an already created workspace
+CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspacename)
+
+river_polygon <- Polygons(list(Polygon(meuse.riv)), ID = "meuse")
+rivers <- SpatialPolygons(list(river_polygon))
+proj4string(rivers) <- CRS(paste("+init=epsg:28992","+towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812"))
+
+rivers <- spTransform(rivers, CRS("+init=epsg:4326"))
+
+rivers_df <- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
+River<- SpatialPolygonsDataFrame(rivers, data = data.frame(ID="meuse", row.names="meuse",stringsAsFactors=FALSE))
+response <- POSTvector(geoserver.accessPoint, geoserver.workspacename, dataStore, River)
 ```
 
 ## Questions, bugs, and suggestions

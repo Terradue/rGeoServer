@@ -2,6 +2,7 @@
 Welcome to rGeoServer!
 
 * [GeoServer](section1/GeoServer.md)
+	* [Note](section1/Note.md)
 * [Installation](section2/installation.md)
     * [Installing a release](section2/release.md)
     * [Installing the development version](section2/development.md)
