@@ -1,0 +1,33 @@
+# Building and installing the development version
+
+The rGeoServer package is built using maven.
+
+From a terminal: 
+
+```bash
+cd
+git clone git@github.com:Terradue/rGeoServer.git
+cd rGeoServer
+mvn compile
+```
+
+That generates a compressed archive with the rGeoServer package in:
+
+```
+~/rGeoServer/target/R/src/rGeoServer_x.y.z.tar.gz
+```
+
+To install the package, start an R session and run:
+
+```coffee
+install.packages("~/rGeoServer/target/R/src/rGeoServer_x.y.z.tar.gz", repos=NULL, type="source")
+```
+
+> Note x.y.z is the development version number.
+
+Then load the library:
+
+```coffee
+library(rGeoServer)
+```
+

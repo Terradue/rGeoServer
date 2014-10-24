@@ -1,0 +1,5 @@
+# Installation
+This chapter provides a guide to install to:
+* Install the rGeoServer package from a release
+* Install the development version of the rGeoServer package
+* Build this book

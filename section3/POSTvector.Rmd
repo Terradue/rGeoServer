@@ -1,0 +1,26 @@
+This is the main entrance to post a vector object (a SpatialObjectDataFrame) on a GeoServer.
+
+  
+### Example
+  
+```coffee
+library(rGeoServer)
+
+data(meuse.riv)
+setwd("~/Downloads")
+
+accessPoint <- "http://localhost:8080/geoserver/rest"
+workspaceName <- "WorkSpaceTest"
+dataStore <- "River.Datastore"
+
+river_polygon <- Polygons(list(Polygon(meuse.riv)), ID = "meuse")
+rivers <- SpatialPolygons(list(river_polygon))
+proj4string(rivers) <- CRS(paste("+init=epsg:28992","+towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812"))
+
+rivers <- spTransform(rivers, CRS("+init=epsg:4326"))
+
+rivers_df <- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
+River<- SpatialPolygonsDataFrame(rivers, data = data.frame(ID="meuse", row.names="meuse",stringsAsFactors=FALSE))
+response <- POSTvector(accessPoint, workspaceName, dataStore, River)
+
+```
