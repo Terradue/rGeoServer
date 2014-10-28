@@ -10,7 +10,6 @@
 #' POSTvector("http://localhost:8080/geoserver/rest", "WorkspaceRoadRiver", "RoadRiver", RoadRiver.SpatialDataFrameObj)
 #' }
 #'
-#' @export
 #' @import sp
 #' @import rgdal
 

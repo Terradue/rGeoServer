@@ -1,5 +1,11 @@
 This is the main entrance to post a vector object (a SpatialObjectDataFrame) on a GeoServer.
+The rGeoServer package puts 3 different functions to post SpatialObjectDataFrame.
 
+- POSTpoligons (post a SpatialPolygonsDataFrame object on the GeoServer)
+- POSTlines (post a SpatialLinesDataFrame object on the GeoServer)
+- POSTpoints (post a SpatialPointsDataFrame object on the GeoServer)
+
+All the functions work in the same way and do a check on the input object and on the workspace (workspace must exist). 
   
 ### Example
   
@@ -21,6 +27,6 @@ rivers <- spTransform(rivers, CRS("+init=epsg:4326"))
 
 rivers_df <- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
 River<- SpatialPolygonsDataFrame(rivers, data = data.frame(ID="meuse", row.names="meuse",stringsAsFactors=FALSE))
-response <- POSTvector(accessPoint, workspaceName, dataStore, River)
+response <- POSTpolygons(accessPoint, workspaceName, dataStore, River)
 
 ```

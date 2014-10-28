@@ -133,7 +133,7 @@ rivers <- spTransform(rivers, CRS("+init=epsg:4326"))
 
 rivers_df <- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
 River<- SpatialPolygonsDataFrame(rivers, data = data.frame(ID="meuse", row.names="meuse",stringsAsFactors=FALSE))
-response <- POSTvector(geoserver.accessPoint, geoserver.workspacename, dataStore, River)
+response <- POSTpolygons(geoserver.accessPoint, geoserver.workspacename, dataStore, River)
 ```
 
 ## Questions, bugs, and suggestions
