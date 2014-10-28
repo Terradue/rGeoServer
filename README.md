@@ -67,7 +67,8 @@ library(rGeoServer)
 
 ## Getting Started 
 
-### Note, The rGeoServer package only supports the Username/password authentication http://docs.geoserver.org/stable/en/user/security/auth/providers.html#username-password-authentication
+Note: 
+The rGeoServer package only supports the Username/password authentication http://docs.geoserver.org/stable/en/user/security/auth/providers.html#username-password-authentication 
 The user must save his own access GeoServer credentials on a R variable "geoserver.authn" in "username:password"  form or he will not be able to send data to the GeoServer server.
 
 ```coffee
