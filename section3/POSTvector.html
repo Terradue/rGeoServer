@@ -30,7 +30,7 @@
 
 
         
-    <div class="book" data-level="3.4" data-basepath=".." data-revision="1414157412430">
+    <div class="book" data-level="3.4" data-basepath=".." data-revision="1414495028224">
     
 
 <div class="book-summary">
@@ -346,7 +346,14 @@
                 
                     <section class="normal" id="section-gitbook_11">
                     
-                        <p>This is the main entrance to post a vector object (a SpatialObjectDataFrame) on a GeoServer.</p>
+                        <p>This is the main entrance to post a vector object (a SpatialObjectDataFrame) on a GeoServer.
+The rGeoServer package puts 3 different functions to post SpatialObjectDataFrame.</p>
+<ul>
+<li>POSTpoligons (post a SpatialPolygonsDataFrame object on the GeoServer)</li>
+<li>POSTlines (post a SpatialLinesDataFrame object on the GeoServer)</li>
+<li>POSTpoints (post a SpatialPointsDataFrame object on the GeoServer)</li>
+</ul>
+<p>All the functions work in the same way and do a check on the input object and on the workspace (workspace must exist). </p>
 <h3 id="example">Example</h3>
 <pre><code class="lang-coffee">library(rGeoServer)
 
@@ -365,7 +372,7 @@ rivers &lt;- spTransform(rivers, CRS(<span class="hljs-string">"+init=epsg:4326"
 
 rivers_df &lt;- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
 River&lt;- SpatialPolygonsDataFrame(rivers, data = data.frame(ID=<span class="hljs-string">"meuse"</span>, row.names=<span class="hljs-string">"meuse"</span>,stringsAsFactors=FALSE))
-response &lt;- POSTvector(accessPoint, workspaceName, dataStore, River)
+response &lt;- POSTpolygons(accessPoint, workspaceName, dataStore, River)
 </code></pre>
 
                     
