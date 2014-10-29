@@ -4,7 +4,7 @@
 #' @param access.point GeoServer REST API access point
 #' @param workspace GeoServer workspace 
 #' @param coverage.store GeoServer coverage store
-#' @param raster raster
+#' @param raster RasterLayer
 #' @return charecter vector
 #' @examples \dontrun{
 #' filename <- "/Users//fbrito/Downloads/ARMOR3D_REPv3-1_20121121_20140420-2.nc"
@@ -18,6 +18,15 @@
 POSTraster <- function(access.point, workspace, coverage.store, raster) {
   # todo: use RCurl instead of the system call
   
+  if( tolower(class(raster)[1]) != "RasterLayer" ){
+    stop(paste("Raster input object expected.", class(raster), "object found"))
+  }
+
+  # workspace must exist
+  if(!checkWorkspace(access.point, workspace)){
+    stop(paste("Workspace",workspace,"doesn't exist on the GeoServer")) 
+  }   
+
   # store the current work dir
   orig.wd <- getwd()
   
