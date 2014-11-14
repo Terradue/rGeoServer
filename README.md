@@ -10,7 +10,7 @@ R interface to rGeoServer
 Inside R, use ?_<function name>_ to view the function's help page. Example:
 
 ```coffee
-?rGeoserverFunciton
+?rGeoserverFunction
 ```
 
 ### Citing this package
@@ -46,7 +46,7 @@ cd rGeoServer
 mvn compile
 ```
 
-That generates a compressed archive with the rOpenSearch package in:
+That generates a compressed archive with the rGeoServer package in:
 
 ```
 ~/rGeoServer/target/R/src/rGeoServer_x.y.z.tar.gz
@@ -67,15 +67,15 @@ library(rGeoServer)
 
 ## Getting Started 
 
-Note: 
-The rGeoServer package only supports the Username/password authentication http://docs.geoserver.org/stable/en/user/security/auth/providers.html#username-password-authentication 
-The user must save his own access GeoServer credentials on a R variable "geoserver.authn" in "username:password"  form or he will not be able to send data to the GeoServer server.
+> Note: 
+The rGeoServer package only supports the username/password authentication http://docs.geoserver.org/stable/en/user/security/auth/providers.html#username-password-authentication 
+The user must save his own access GeoServer credentials on a R variable "geoserver.authn" in "username:password" form or you will not be able to send data to the GeoServer server.
 
 ```coffee
 geoserver.authn <- "my.username:my.password"
 ```
 
-### Exemple, create and publish a ratser image 
+### Create and publish a raster 
 
 ```coffee
 library(rGeoServer)
@@ -92,26 +92,27 @@ geoserver.coveragestore <- "example.coverageStore"
 # create the workspace name on the geoserver or use an already created workspace
 CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspacename)
 
-coordinates(meuse) = ~x+y
+coordinates(meuse) <- ~x+y
 data(meuse.grid)
-gridded(meuse.grid) = ~x+y
+gridded(meuse.grid) <- ~x+y
 m <- vgm(.59, "Sph", 874, .04)
 # ordinary kriging:
 x <- krige(log(zinc)~1, meuse, meuse.grid, model = m)
 r <- raster(x[1])
 
-cs<-CreateGeoServerCoverageStore(geoserver.accessPoint,
+cs <- CreateGeoServerCoverageStore(geoserver.accessPoint,
 		                         geoserver.workspacename,
 		                         geoserver.coveragestore,
 		                         TRUE,
 		                         "GeoTIFF",
 		                         "file:data/raster.tif")
 
-t<-POSTraster(access.point, workspace, coverage.store, r)
+t <- POSTraster(access.point, workspace, coverage.store, r)
 
 ```
 
-### Exemple, create and publish a vector image on the GeoServer server
+### Create and publish vectorial data
+
 ```coffee
 library(rGeoServer)
 
@@ -139,5 +140,3 @@ response <- POSTpolygons(geoserver.accessPoint, geoserver.workspacename, dataSto
 ## Questions, bugs, and suggestions
 
 Please file any bugs or questions as [issues](https://github.com/Terradue/rGeoServer/issues/new) or send in a pull request.
-
-
