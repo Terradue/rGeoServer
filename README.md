@@ -86,11 +86,11 @@ data(meuse)
 setwd("~/Downloads")
 
 geoserver.accessPoint <- "http://localhost:8080/geoserver/rest"
-geoserver.workspacename <- "Test.GeoServerRaster"
+geoserver.workspace <- "Test.GeoServerRaster"
 geoserver.coveragestore <- "example.coverageStore"
 
 # create the workspace name on the geoserver or use an already created workspace
-CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspacename)
+CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspace)
 
 coordinates(meuse) <- ~x+y
 data(meuse.grid)
@@ -101,7 +101,7 @@ x <- krige(log(zinc)~1, meuse, meuse.grid, model = m)
 r <- raster(x[1])
 
 cs <- CreateGeoServerCoverageStore(geoserver.accessPoint,
-		                         geoserver.workspacename,
+		                         geoserver.workspace,
 		                         geoserver.coveragestore,
 		                         TRUE,
 		                         "GeoTIFF",
@@ -120,11 +120,11 @@ data(meuse.riv)
 setwd("~/Downloads")
 
 geoserver.accessPoint <- "http://localhost:8080/geoserver/rest"
-geoserver.workspacename <- "Test.GeoServerVector"
+geoserver.workspace <- "Test.GeoServerVector"
 dataStore <- "River.Datastore"
 
 # create the workspace name on the geoserver or use an already created workspace
-CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspacename)
+CreateGeoServerWorkspace(geoserver.accessPoint, geoserver.workspace)
 
 river_polygon <- Polygons(list(Polygon(meuse.riv)), ID = "meuse")
 rivers <- SpatialPolygons(list(river_polygon))
@@ -134,7 +134,7 @@ rivers <- spTransform(rivers, CRS("+init=epsg:4326"))
 
 rivers_df <- SpatialPolygonsDataFrame(rivers,data=data.frame(row.names=row.names(rivers)))
 River<- SpatialPolygonsDataFrame(rivers, data = data.frame(ID="meuse", row.names="meuse",stringsAsFactors=FALSE))
-response <- POSTpolygons(geoserver.accessPoint, geoserver.workspacename, dataStore, River)
+response <- POSTpolygons(geoserver.accessPoint, geoserver.workspace, dataStore, River)
 ```
 
 ## Questions, bugs, and suggestions
