@@ -18,7 +18,7 @@
 POSTraster <- function(access.point, workspace, coverage.store, raster) {
   # todo: use RCurl instead of the system call
   
-  if( tolower(class(raster)[1]) != "RasterLayer" ){
+  if( tolower(class(raster)[1]) != "rasterlayer" ){
     stop(paste("Raster input object expected.", class(raster), "object found"))
   }
 
